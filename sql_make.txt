@@ -1,39 +1,8 @@
-CREATE TABLE characterTable(
+CREATE TABLE IF NOT EXISTS characterTable(
     ID  INTEGER PRIMARY KEY AUTOINCREMENT,
-    Name TEXT,
-    Race text,
-    MaxHitpoints INTEGER,
-    CurrentHitpoints INTEGER,
-    ArmorClass INTEGER,
-    MovementSpeed INTEGER
-);
-
-CREATE TABLE playerTable(
-    ID  INTEGER PRIMARY KEY AUTOINCREMENT,
-    Name TEXT,
-    Race TEXT,
-    Class TEXT
-    MaxHitpoints INTEGER,
-    CurrentHitpoints INTEGER,
-    ArmorClass INTEGER,
-    MovementSpeed INTEGER
-);
-
-CREATE TABLE AbilityScores(
-    Strength INTEGER,
-    Dexterity INTEGER,
-    Constitution INTEGER,
-    Intelligence INTEGER,
-    Wisdom INTEGER,
-    Charisma INTEGER
-);
-
-CREATE TABLE Items(
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Name TEXT,
-    Weight NUMERIC,
-    Description TEXT
-);
-
-INSERT INTO characterTable(Name)
-VALUES ('Kros');
+    Name TEXT NOT NULL,
+    Race text NOT NUL,
+    MaxHitpoints INTEGER NOT NULL,
+    CurrentHitpoints INTEGER NOT NULL,
+    ArmorClass INTEGER NOT NULL,
+    MovementSpeed INTEGER NOT NULL);
