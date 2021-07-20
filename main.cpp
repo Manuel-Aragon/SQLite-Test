@@ -7,6 +7,8 @@
 
 static int createDB(const char*);
 static int createTable(const char*, const char*);
+static int insertData(const char*,const char*);
+static int updateData(const char*,const char*);
 static int deleteData(const char*, const char*);
 static int callback(void*, int, char**, char**);
 static int selectData(const char*, const char*);
@@ -15,16 +17,9 @@ int main()
 {
     std::string database_name = "sqLite_test.db";
     std::string table_file = "sql_make.txt";
-     std::string sql_string = "CREATE TABLE IF NOT EXISTS characterTable("
-	 	"ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-	 	"NAME      TEXT NOT NULL, "
-	 	"Race     TEXT NOT NULL, "
-	 	"MaxHitpoints       INT  NOT NULL, "
-	 	"CurrentHitpoints   INT NOT NULL, "
-	 	"ArmorClass    INT NOT NULL, "
-         "MovementSpeed INTEGER NOT NULL,"
-    ");";
     sqlite3 *db;
+	std::string sql_string;
+    std::fstream table_create_stream(table_file, std::fstream::in);
 
     if(std::filesystem::exists(database_name))
     {
@@ -35,14 +30,15 @@ int main()
     {
         std::cout << database_name << " does not exists" << std::endl;
         createDB(database_name.c_str());
-        std::fstream table_create_stream(table_file, std::fstream::in);
         while (getline(table_create_stream, sql_string, ';'))
         {
             sql_string.push_back(';');
             createTable(database_name.c_str(), sql_string.c_str());
         }
+		table_create_stream.close();
     }
 	std::string sql_querey = "SELECT * FROM characterTable;";
+
 	selectData(database_name.c_str(), sql_querey.c_str());
 
 }
@@ -97,6 +93,48 @@ static int selectData(const char* name, const char* sql)
 	}
 	else
 		std::cout << "Records selected Successfully!" << std::endl;
+
+	return 0;
+}
+
+static int insertData(const char* name, const char* sql)
+{
+	sqlite3* DB;
+	char* messageError;
+		
+	 sql = ("INSERT INTO GRADES (NAME, LNAME, AGE, ADDRESS, GRADE) VALUES('Alice', 'Chapa', 35, 'Tampa', 'A');"
+		"INSERT INTO GRADES (NAME, LNAME, AGE, ADDRESS, GRADE) VALUES('Bob', 'Lee', 20, 'Dallas', 'B');"
+		"INSERT INTO GRADES (NAME, LNAME, AGE, ADDRESS, GRADE) VALUES('Fred', 'Cooper', 24, 'New York', 'C');");
+
+	int exit = sqlite3_open(name, &DB);
+	/* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+	exit = sqlite3_exec(DB, sql, NULL, 0, &messageError);
+	if (exit != SQLITE_OK) {
+		std::cerr << "Error in insertData function." << std::endl;
+		sqlite3_free(messageError);
+	}
+	else
+		std::cout << "Records inserted Successfully!" << std::endl;
+
+	return 0;
+}
+
+static int updateData(const char* name, const char* sql)
+{
+	sqlite3* DB;
+	char* messageError;
+
+	sql = ("UPDATE GRADES SET GRADE = 'A' WHERE LNAME = 'Cooper'");
+
+	int exit = sqlite3_open(name, &DB);
+	/* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+	exit = sqlite3_exec(DB, sql, NULL, 0, &messageError);
+	if (exit != SQLITE_OK) {
+		std::cerr << "Error in updateData function." << std::endl;
+		sqlite3_free(messageError);
+	}
+	else
+		std::cout << "Records updated Successfully!" << std::endl;
 
 	return 0;
 }
