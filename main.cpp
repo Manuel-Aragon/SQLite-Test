@@ -7,6 +7,9 @@
 
 static int createDB(const char*);
 static int createTable(const char*, const char*);
+static int deleteData(const char*, const char*);
+static int callback(void*, int, char**, char**);
+static int selectData(const char*, const char*);
 
 int main()
 {
@@ -26,27 +29,22 @@ int main()
     if(std::filesystem::exists(database_name))
     {
         std::cout << database_name << " Exists!" << std::endl;
+        sqlite3_open(database_name.c_str(), &db);
     }
-    //else
+    else
     {
         std::cout << database_name << " does not exists" << std::endl;
         createDB(database_name.c_str());
-        std::fstream table_create_stream (table_file, std::fstream::in);
-        std::string sql_line;
-        std::string sql_string;
-        std::stringstream create_string_stream;
-        while(getline(table_create_stream, sql_line))
+        std::fstream table_create_stream(table_file, std::fstream::in);
+        while (getline(table_create_stream, sql_string, ';'))
         {
-            sql_string += sql_line;
-            if (sql_line == "    );")
-            {
-                break;
-            }
-            //getline(create_string_stream, sql_string,';');
+            sql_string.push_back(';');
+            createTable(database_name.c_str(), sql_string.c_str());
         }
-        createTable(database_name.c_str(), create_string_stream.str().c_str());
-
     }
+	std::string sql_querey = "SELECT * FROM characterTable;";
+	selectData(database_name.c_str(), sql_querey.c_str());
+
 }
 
 static int createDB(const char* name)
@@ -82,4 +80,55 @@ static int createTable(const char* name, const char* sql)
 	}
 
 	return 0;
+}
+
+static int selectData(const char* name, const char* sql)
+{
+	sqlite3* DB;
+	char* messageError;
+
+	int exit = sqlite3_open(name, &DB);
+	/* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here*/
+	exit = sqlite3_exec(DB, sql, callback, NULL, &messageError);
+
+	if (exit != SQLITE_OK) {
+		std::cerr << "Error in selectData function." << std::endl;
+		sqlite3_free(messageError);
+	}
+	else
+		std::cout << "Records selected Successfully!" << std::endl;
+
+	return 0;
+}
+
+static int deleteData(const char* name, const char* sql)
+{
+	sqlite3* DB;
+	char* messageError;
+
+	int exit = sqlite3_open(name, &DB);
+	/* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+	exit = sqlite3_exec(DB, sql, callback, NULL, &messageError);
+	if (exit != SQLITE_OK) {
+		std::cerr << "Error in deleteData function." << std::endl;
+		sqlite3_free(messageError);
+	}
+	else
+		std::cout << "Records deleted Successfully!" << std::endl;
+
+	return 0;
+}
+
+// retrieve contents of database used by selectData()
+/* argc: holds the number of results, argv: holds each value in array, azColName: holds each column returned in array, */
+static int callback(void* NotUsed, int argc, char** argv, char** azColName)
+{
+    for (int i = 0; i < argc; i++) {
+        // column name and value
+        std::cout << azColName[i] << ": " << argv[i] << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    return 0;
 }
