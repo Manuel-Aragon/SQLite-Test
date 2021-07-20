@@ -1,5 +1,5 @@
 #include <iostream>
-#include "sqlite3.h"
+#include "include/sqlite3.h"
 #include <filesystem>
 #include <sstream>
 #include <string>
@@ -12,36 +12,39 @@ int main()
 {
     std::string database_name = "sqLite_test.db";
     std::string table_file = "sql_make.txt";
-    // std::string sql_string = "CREATE TABLE IF NOT EXISTS characterTable("
-	// 	"ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-	// 	"NAME      TEXT NOT NULL, "
-	// 	"Race     TEXT NOT NULL, "
-	// 	"MaxHitpoints       INT  NOT NULL, "
-	// 	"CurrentHitpoints   INT NOT NULL, "
-	// 	"ArmorClass    INT NOT NULL, "
-    //     "MovementSpeed INTEGER NOT NULL);";
-
-
+     std::string sql_string = "CREATE TABLE IF NOT EXISTS characterTable("
+	 	"ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+	 	"NAME      TEXT NOT NULL, "
+	 	"Race     TEXT NOT NULL, "
+	 	"MaxHitpoints       INT  NOT NULL, "
+	 	"CurrentHitpoints   INT NOT NULL, "
+	 	"ArmorClass    INT NOT NULL, "
+         "MovementSpeed INTEGER NOT NULL,"
+    ");";
     sqlite3 *db;
 
     if(std::filesystem::exists(database_name))
     {
         std::cout << database_name << " Exists!" << std::endl;
     }
-    else
+    //else
     {
         std::cout << database_name << " does not exists" << std::endl;
         createDB(database_name.c_str());
         std::fstream table_create_stream (table_file, std::fstream::in);
         std::string sql_line;
         std::string sql_string;
+        std::stringstream create_string_stream;
         while(getline(table_create_stream, sql_line))
         {
-            std::stringstream create_string_stream(sql_line);
-            getline(create_string_stream, sql_string,';');
+            sql_string += sql_line;
+            if (sql_line == "    );")
+            {
+                break;
+            }
+            //getline(create_string_stream, sql_string,';');
         }
-        sql_string.push_back(';');
-        createTable(database_name.c_str(), sql_string.c_str());
+        createTable(database_name.c_str(), create_string_stream.str().c_str());
 
     }
 }
