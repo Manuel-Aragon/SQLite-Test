@@ -1,0 +1,2 @@
+/usr/bin/ar qc libDatabase.a CMakeFiles/Database.dir/src/sqlite3.c.o CMakeFiles/Database.dir/src/Database.cpp.o
+/usr/bin/ranlib libDatabase.a

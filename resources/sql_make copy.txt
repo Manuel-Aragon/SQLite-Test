@@ -1,0 +1,18 @@
+CREATE TABLE Items(
+    itemID INT PRIMARY KEY AUTOINCREMENT,
+    itemName TEXT NOT NULL UNIQUE,
+    description TEXT,
+    CONSTRAINT checkA  CHECK (Age>=18 AND City='Sandnes'
+);
+
+CREATE TABLE Inventory(
+    inventoryID INT PRIMARY KEY AUTOINCREMENT, --remove if this has no use;
+    characterID INT FOREIGN KEY,
+    itemID INT FOREGIN KEY,
+    count INT NOT NULL Default 1);
+    CREATE TABLE Equipment
+);
+
+INSERT INTO characterTable(Name,Race,MaxHitpoints,CurrentHitpoints,ArmorClass,MovementSpeed)
+VALUES ('Kros','Human',10,10,10,30);
+CONSTRAINT UC_Person UNIQUE (ID,LastName)

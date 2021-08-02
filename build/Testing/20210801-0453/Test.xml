@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20210801-0453-Experimental"
+	Name="(empty)"
+	Generator="ctest-3.21.1"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="macOS"
+	Hostname="Manuels-MBP.attlocal.net"
+	OSRelease="11.3.1"
+	OSVersion="20E241"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="61"
+	ProcessorCacheSize="32768"
+	NumberOfLogicalCPU="4"
+	NumberOfPhysicalCPU="2"
+	TotalVirtualMemory="4096"
+	TotalPhysicalMemory="8192"
+	LogicalProcessorsPerPhysical="8"
+	ProcessorClockFrequency="2900"
+	>
+	<Testing>
+		<StartDateTime>Aug 01 18:24 CDT</StartDateTime>
+		<StartTestTime>1627860294</StartTestTime>
+		<TestList>
+			<Test>./test/Name</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>Name</Name>
+			<Path>./test</Path>
+			<FullName>./test/Name</FullName>
+			<FullCommandLine>/Users/manuelaragon/Documents/Programming/TestProjects/SQLite-Test/build/test/DatabaseTests "Command" "DatabaseTests"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.23354</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/Users/manuelaragon/Documents/Programming/TestProjects/SQLite-Test/build/test/DatabaseTests "Command" "DatabaseTests"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJyNUMtOxDAMvPcrfNwe2sAHcEAUIcRradlTVSE3a6KgxEFJChJfT0JXK7YSUuc0icf2eNqJWbMCi5o3Jbx5Z0HsAvkgLPJEBj0qx6JxcrLEMYitd8qjtalLvFCI6f1OMhW653sdqcp/QjmnDMUFDV4KldlrXldLWfQXRwzQHrycQ9bMXg48TGl0XfTVEQPcGDeimevEn9o7zg4hUKymj4X478wrTxipwYgjBip6aHeP8IthUavR0wPZMcVxyzpqNPqb9qljxtPdyg7YnIEN5VpLsxyii2jKYt3VkdBXe/fFp5n+lyV45Pp0T7pqe9l1103OYdbWxQ+VVrHb====</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Aug 01 18:24 CDT</EndDateTime>
+		<EndTestTime>1627860294</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

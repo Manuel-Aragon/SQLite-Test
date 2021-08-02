@@ -1,0 +1,29 @@
+Start testing: Aug 01 18:24 CDT
+----------------------------------------------------------
+1/1 Testing: Name
+1/1 Test: Name
+Command: "/Users/manuelaragon/Documents/Programming/TestProjects/SQLite-Test/build/test/DatabaseTests" "Command" "DatabaseTests"
+Directory: /Users/manuelaragon/Documents/Programming/TestProjects/SQLite-Test/build/test
+"Name" start time: Aug 01 18:24 CDT
+Output:
+----------------------------------------------------------
+Running main() from /Users/manuelaragon/Documents/Programming/TestProjects/SQLite-Test/googletest/googletest/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from CreateDatabase
+[ RUN      ] CreateDatabase.areMembersInitialized
+[       OK ] CreateDatabase.areMembersInitialized (0 ms)
+[----------] 1 test from CreateDatabase (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.23 sec
+----------------------------------------------------------
+Test Passed.
+"Name" end time: Aug 01 18:24 CDT
+"Name" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Aug 01 18:24 CDT

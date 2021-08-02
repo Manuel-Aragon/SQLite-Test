@@ -1,6 +1,6 @@
-CC=g++ -std=c++17
+CC=g++ -std=c++20 -o release/SQLiteTest.exe
 
 run:
-	$(CC) main.cpp -lsqlite3
+	$(CC) -lsqlite3 -I include/ src/*.cpp
 clean:
-	rm a.* *.gch
+	rm a.* *.gch resources/*.db
