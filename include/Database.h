@@ -15,10 +15,8 @@ private:
     struct Deleter {    //custom deleter for smart pointer sqlite3
         void operator()(sqlite3* a_sqlite3);
     };
-    sqlite3* getHandle() const noexcept
-    {
-        return m_sqlite3.get();
-    }
+    sqlite3* getHandle() const noexcept { return m_sqlite3.get();};
+
 
     //member variables
     std::string m_name;

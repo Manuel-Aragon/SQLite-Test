@@ -7,8 +7,16 @@ const std::string init_file_path = "/Users/manuelaragon/Documents/Programming/Te
 
 TEST(CreateDatabase, areMembersInitialized)
 {
+    std::filesystem::remove(database_path); //remove database file if it exists
     Database::Get().initialize(database_path, init_file_path);
-    EXPECT_EQ(Database::Get().getExitCode(), SQLITE_OK);
-    EXPECT_EQ(Database::Get().getMessage(),"Database created successfully.");
     EXPECT_EQ(Database::Get().getPath(),database_path);
+}
+
+TEST(CreateDatabse, databaseNotInitializedWhenAlreadyExists)
+{
+    Database::Get().open(database_path);
+    Database::Get().close();    //opens and closes to create file
+    Database::Get().initialize(database_path, init_file_path);
+    EXPECT_EQ("Database already exists.", Database::Get().getMessage());
+    EXPECT_EQ(Database::Get().getExitCode(), -1);
 }

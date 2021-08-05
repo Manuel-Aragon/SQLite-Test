@@ -16,6 +16,12 @@ void Database::Deleter::operator()(sqlite3* a_db)
 
 void Database::initialize(const std::string& a_name, const std::string& a_initialization_file)
 {
+	bool exists = std::filesystem::exists(a_name);		//determine if database with argument name has been created
+	if (exists){
+		m_message = "Database already exists.";
+		m_exit_code = -1;
+		return;
+	}
 	open(a_name);
     std::ifstream init_stream(a_initialization_file, std::ifstream::in);
     if (init_stream.is_open()){
@@ -56,7 +62,6 @@ void Database::execute(const std::string& a_sql)
 }
 
 void Database::open(const std::string& a_name) {
-	bool exist = std::filesystem::exists(a_name);		//determine if database with argument name has been created
 	sqlite3* handle = nullptr;							//create database connection handle
 	int code = sqlite3_open(a_name.c_str(), &handle);	//try to open database
 	if (code != SQLITE_OK){
