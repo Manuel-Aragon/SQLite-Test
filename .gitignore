@@ -39,3 +39,6 @@ build*/
 
 #realease builds
 .release*/
+
+#MAC
+.DS_Store
