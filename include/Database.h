@@ -6,45 +6,39 @@
 #include <fstream>
 #include <sstream>
 
-struct DatabaseReturn
-{
-	int code = 0;			     //corresponds to SQLite Result Code
-	std::string message = "";   //message from function
-    std::string sql_return;     //data from database
-};
 
 class Database
 {
 private:
-    Database(const std::string a_name, const std::string a_initialization_file);
+    Database();
     ~Database();
     struct Deleter {    //custom deleter for smart pointer sqlite3
         void operator()(sqlite3* a_sqlite3);
     };
-    DatabaseReturn initialize(const std::string a_initialization_file);    //only called when databse does not exist
     sqlite3* getHandle() const noexcept
     {
         return m_sqlite3.get();
     }
 
-    std::string m_file_path;
+    //member variables
+    std::string m_name;
+    std::string m_message;
+    int m_exit_code;
     std::unique_ptr<sqlite3, Deleter> m_sqlite3;
 public:
-    static Database& get()
+    Database(const Database &) = delete;    //delete assignment operator
+    Database & operator = (const Database &) = delete;  //delete assignment operator
+    static Database& Get()      //get instance of Database
     {
-        return create(nullptr, nullptr);
-    }
-
-    static Database& create(const std::string a_name, const std::string a_initialization_file)
-    {
-        static auto db = Database(a_name, a_initialization_file);
+        static auto db = Database();
         return db;
     }
 
-    DatabaseReturn execute(const std::string a_sql);    //middle man to execute sql statements
-    Database(const Database &) = delete;    //delete assignment operator
-    Database & operator = (const Database &) = delete;  //delete assignment operator
-
-    //std::string getPath() const { return m_file_path; }
+    void open(const std::string& a_name);
+    void initialize(const std::string& a_name, const std::string& a_initialization_file);
+    void execute(const std::string& a_sql);    //middle man to execute sql statements
+    void close();
+    std::string getPath() const{return m_name;};
+    std::string getMessage() const {return m_message;};
+    int getExitCode() const {return m_exit_code;};
 };
-
