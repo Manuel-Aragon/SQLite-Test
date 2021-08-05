@@ -33,3 +33,6 @@
 
 #CMAKE BUILD
 build*/
+
+#vscode 
+.vscode*/
